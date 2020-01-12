@@ -30,6 +30,8 @@ As a result, provide a link to github repository. It should contain the code, RE
 ## How to use
 
 ## Примеры cURL команд:
+> For windows use `Git Bash`
+
 **Admin**
 #### GET all restaurants:
 `curl -s http://localhost:8080/rest/admin/restaurants --user admin@gmail.com:admin`
