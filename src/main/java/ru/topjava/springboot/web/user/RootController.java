@@ -1,4 +1,4 @@
-package ru.topjava.springboot.web;
+package ru.topjava.springboot.web.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,22 +14,22 @@ import ru.topjava.springboot.service.RestaurantService;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = UserRestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class UserRestaurantRestController {
+@RequestMapping(value = RootController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class RootController {
 
-    private static final Logger log = LoggerFactory.getLogger(UserRestaurantRestController.class);
+    private static final Logger log = LoggerFactory.getLogger(RootController.class);
 
     static final String REST_URL = "/rest/restaurants";
 
     private final RestaurantService service;
 
-    public UserRestaurantRestController(RestaurantService service) {
+    public RootController(RestaurantService service) {
         this.service = service;
     }
 
     @GetMapping("/dishes")
     public ResponseEntity<List<Restaurant>> getWithDishes() {
-        log.info("get restaurant {} with dishes");
+        log.info("get restaurants with dishes");
         List<Restaurant> withDishes = service.getWithDishes();
         return new ResponseEntity<>(withDishes, HttpStatus.OK);
     }

@@ -1,4 +1,4 @@
-package ru.topjava.springboot.web;
+package ru.topjava.springboot.web.user;
 
 
 import org.slf4j.Logger;
@@ -7,28 +7,28 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import ru.topjava.springboot.model.Restaurant;
 import ru.topjava.springboot.model.Vote;
 import ru.topjava.springboot.service.VoteService;
 import ru.topjava.springboot.to.VoteTo;
+import ru.topjava.springboot.web.SecurityUtil;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = UserVoteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class UserVoteRestController {
+@RequestMapping(value = VoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class VoteController {
 
-    private static final Logger log = LoggerFactory.getLogger(UserVoteRestController.class);
+    private static final Logger log = LoggerFactory.getLogger(VoteController.class);
     static final String REST_URL = "/rest/vote";
-    private static final LocalTime DEADLINE = LocalTime.of(21, 0);
+    private static final LocalTime DEADLINE = LocalTime.of(11, 0);
 
     private final VoteService service;
 
-    public UserVoteRestController(VoteService service) {
+    public VoteController(VoteService service) {
         this.service = service;
     }
 
@@ -52,7 +52,7 @@ public class UserVoteRestController {
     @GetMapping
     public Vote getOnDate(@RequestParam(value = "date", required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         int userId = SecurityUtil.authUserId();
-        log.info("get vote for user with id ={}, day ={}", userId, date);
+        log.info("get vote for user with id ={}, date ={}", userId, date);
         return service.getOnDate(userId, date).get();
     }
 }

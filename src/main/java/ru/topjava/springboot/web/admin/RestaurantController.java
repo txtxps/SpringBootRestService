@@ -1,4 +1,4 @@
-package ru.topjava.springboot.web;
+package ru.topjava.springboot.web.admin;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,29 +14,29 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = AdminRestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminRestaurantRestController {
+@RequestMapping(value = RestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class RestaurantController {
 
-    private static final Logger log = LoggerFactory.getLogger(AdminRestaurantRestController.class);
+    private static final Logger log = LoggerFactory.getLogger(RestaurantController.class);
 
     static final String REST_URL = "/rest/admin/restaurants";
 
     private final RestaurantService service;
 
-    public AdminRestaurantRestController(RestaurantService service) {
+    public RestaurantController(RestaurantService service) {
         this.service = service;
     }
 
     @GetMapping("/{id}")
     public Restaurant get(@PathVariable int id) {
-        log.info("get restaurant {}");
+        log.info("get restaurant");
         return service.get(id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
-        log.info("delete restaurant {}");
+        log.info("delete restaurant");
         service.delete(id);
     }
 
@@ -49,7 +49,7 @@ public class AdminRestaurantRestController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public ResponseEntity<Restaurant> update(@RequestBody Restaurant restaurant, @PathVariable int id) {
-        log.info("update restaurant {}");
+        log.info("update restaurant {}", restaurant);
         Restaurant updated = service.update(restaurant, id);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
@@ -59,12 +59,12 @@ public class AdminRestaurantRestController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant) {
+        log.info("create restaurant {}", restaurant);
         Restaurant created = service.create(restaurant);
-
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
-log.info("create restaurant {}");
+
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 }

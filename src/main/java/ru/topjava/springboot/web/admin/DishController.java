@@ -1,4 +1,4 @@
-package ru.topjava.springboot.web;
+package ru.topjava.springboot.web.admin;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,16 +14,16 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = AdminDishRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminDishRestController {
+@RequestMapping(value = DishController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class DishController {
 
-    private static final Logger log = LoggerFactory.getLogger(AdminDishRestController.class);
+    private static final Logger log = LoggerFactory.getLogger(DishController.class);
 
     static final String REST_URL = "/rest/admin/dishes";
 
     private final DishService service;
 
-    public AdminDishRestController(DishService service) {
+    public DishController(DishService service) {
         this.service = service;
     }
 
