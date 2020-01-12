@@ -27,7 +27,6 @@ As a result, provide a link to github repository. It should contain the code, RE
 * HSQLDB
 * Hibernate
 * Java 8
-## How to use
 
 ## Примеры cURL команд:
 > For windows use `Git Bash`
