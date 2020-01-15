@@ -1,4 +1,4 @@
-package ru.topjava.springboot.web.admin;
+package ru.topjava.springboot.web.restaurant;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,16 +16,16 @@ import java.util.List;
 import static ru.topjava.springboot.util.ValidationUtil.checkNotFoundWithId;
 
 @RestController
-@RequestMapping(value = RestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class RestaurantController {
+@RequestMapping(value = AdminRestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class AdminRestaurantController {
 
-    private static final Logger log = LoggerFactory.getLogger(RestaurantController.class);
+    private static final Logger log = LoggerFactory.getLogger(AdminRestaurantController.class);
 
     static final String REST_URL = "/admin/restaurants";
 
     private final RestaurantRepository repository;
 
-    public RestaurantController(RestaurantRepository repository) {
+    public AdminRestaurantController(RestaurantRepository repository) {
         this.repository = repository;
     }
 
@@ -48,12 +48,6 @@ public class RestaurantController {
         return new ResponseEntity<>(repository.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}/dishes")
-    public ResponseEntity<List<Restaurant>> getWithDishes(@PathVariable int id) {
-        log.info("get restaurant with id={}, with dishes", id);
-        return new ResponseEntity<>(repository.getWithDishes(id), HttpStatus.OK);
-    }
-
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public ResponseEntity<Restaurant> update(@RequestBody Restaurant restaurant, @PathVariable int id) {
@@ -74,5 +68,11 @@ public class RestaurantController {
                 .buildAndExpand(created.getId()).toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(created);
+    }
+
+    @GetMapping("/{id}/dishes")
+    public Restaurant getWithDishes(@PathVariable int id) {
+        log.info("get restaurant with id={} with dishes", id);
+        return checkNotFoundWithId(repository.getWithDishes(id), id);
     }
 }

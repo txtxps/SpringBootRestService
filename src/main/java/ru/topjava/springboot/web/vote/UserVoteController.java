@@ -1,4 +1,4 @@
-package ru.topjava.springboot.web.user;
+package ru.topjava.springboot.web.vote;
 
 
 import org.slf4j.Logger;
@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ru.topjava.springboot.model.Restaurant;
 import ru.topjava.springboot.model.Vote;
 import ru.topjava.springboot.service.VoteService;
 import ru.topjava.springboot.web.SecurityUtil;
@@ -19,16 +20,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = VoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class VoteController {
+@RequestMapping(value = UserVoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class UserVoteController {
 
-    private static final Logger log = LoggerFactory.getLogger(VoteController.class);
+    private static final Logger log = LoggerFactory.getLogger(UserVoteController.class);
     static final String REST_URL = "/rest/profile";
 
 
     private final VoteService service;
 
-    public VoteController(VoteService service) {
+    public UserVoteController(VoteService service) {
         this.service = service;
     }
 
@@ -71,6 +72,9 @@ public class VoteController {
         log.info("get votes between dates({} - {})", startDate, endDate);
         return service.getBetween(userId, startDate, endDate);
     }
+
+
+
 //
 //    @GetMapping
 //    public Vote getOnDate(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {

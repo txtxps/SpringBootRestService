@@ -17,8 +17,8 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     int delete(@Param("id") int id);
 
     @EntityGraph(attributePaths = {"dishes"}, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT r FROM Restaurant r WHERE r.id=?1")
-    List<Restaurant> getWithDishes(int id);
+    @Query("SELECT r FROM Restaurant r WHERE r.id=:id")
+    Restaurant getWithDishes(int id);
 
     @Query("SELECT r FROM Restaurant r ORDER BY r.name")
     List<Restaurant> getAll();
