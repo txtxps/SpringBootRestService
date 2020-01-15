@@ -11,9 +11,10 @@ public class AbstractNamedEntity extends AbstractBaseEntity {
     @Column(name = "name", nullable = false)
     protected String name;
 
-    protected AbstractNamedEntity() {}
+    protected AbstractNamedEntity() {
+    }
 
-    public AbstractNamedEntity(Integer id, String name) {
+    protected AbstractNamedEntity(Integer id, String name) {
         super(id);
         this.name = name;
     }

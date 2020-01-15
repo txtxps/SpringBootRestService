@@ -1,13 +1,15 @@
 package ru.topjava.springboot.model;
 
+import org.hibernate.Hibernate;
 import org.springframework.data.domain.Persistable;
+import ru.topjava.springboot.HasId;
 
 import javax.persistence.*;
 
 @MappedSuperclass
 // http://stackoverflow.com/questions/594597/hibernate-annotations-which-is-better-field-or-property-access
 @Access(AccessType.FIELD)
-public class AbstractBaseEntity implements Persistable<Integer> {
+public class AbstractBaseEntity implements HasId {
 
     public static final int START_SEQ = 100000;
     @Id
@@ -15,7 +17,8 @@ public class AbstractBaseEntity implements Persistable<Integer> {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     protected Integer id;
 
-    protected AbstractBaseEntity() {}
+    protected AbstractBaseEntity() {
+    }
 
     protected AbstractBaseEntity(Integer id) {
         this.id = id;
@@ -36,8 +39,8 @@ public class AbstractBaseEntity implements Persistable<Integer> {
     }
 
     @Override
-    public int hashCode() {
-        return id == null ? 0 : id;
+    public String toString() {
+        return getClass().getSimpleName() + ":" + id;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class AbstractBaseEntity implements Persistable<Integer> {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (o == null || !getClass().equals(Hibernate.getClass(o))) {
             return false;
         }
         AbstractBaseEntity that = (AbstractBaseEntity) o;
@@ -53,7 +56,7 @@ public class AbstractBaseEntity implements Persistable<Integer> {
     }
 
     @Override
-    public String toString() {
-        return getClass().getSimpleName() + ":" + id;
+    public int hashCode() {
+        return id == null ? 0 : id;
     }
 }

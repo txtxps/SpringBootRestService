@@ -1,7 +1,5 @@
 package ru.topjava.springboot.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -10,15 +8,15 @@ import java.time.LocalDate;
 @Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date"}, name = "user_unique_vote_idx")})
 public class Vote extends AbstractBaseEntity {
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
+//    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "user_id")
     @NotNull
-    private User user;
+    private Integer userId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "restaurant_id", nullable = false)
+//    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "restaurant_id")
     @NotNull
-    private Restaurant restaurant;
+    private Integer restaurantId;
 
     @Column(name = "date", unique = true)
     @NotNull
@@ -27,16 +25,38 @@ public class Vote extends AbstractBaseEntity {
     public Vote() {
     }
 
-    public Vote(User user, Restaurant restaurant, LocalDate date) {
-        this.user = user;
-        this.restaurant = restaurant;
+    public Vote(Integer userId, Integer restaurantId, LocalDate date) {
+        this.userId = userId;
+        this.restaurantId = restaurantId;
         this.date = date;
     }
-    public Vote(Integer id, User user, Restaurant restaurant, LocalDate date) {
+    public Vote(Integer id, Integer userId, Integer restaurantId, LocalDate date) {
         super(id);
-        this.user = user;
-        this.restaurant = restaurant;
+        this.userId = userId;
+        this.restaurantId = restaurantId;
         this.date = date;
+    }
+
+    public Vote(Vote v) {
+        this(v.getId(), v.getUserId(), v.getRestaurantId(), v.getDate());
+    }
+
+
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(Integer restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     public LocalDate getDate() {
@@ -47,28 +67,12 @@ public class Vote extends AbstractBaseEntity {
         this.date = date;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
-
     @Override
     public String toString() {
         return "Vote{" +
                 "id=" + id +
-                ", user=" + user +
-                ", restaurant=" + restaurant +
+                ", userId=" + userId +
+                ", restaurantId=" + restaurantId +
                 ", date=" + date +
                 '}';
     }

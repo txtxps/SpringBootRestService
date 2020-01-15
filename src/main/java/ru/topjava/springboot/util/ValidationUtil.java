@@ -1,5 +1,7 @@
 package ru.topjava.springboot.util;
 
+import ru.topjava.springboot.HasId;
+import ru.topjava.springboot.util.exception.IllegalRequestDataException;
 import ru.topjava.springboot.util.exception.NotFoundException;
 
 public class ValidationUtil {
@@ -38,5 +40,11 @@ public class ValidationUtil {
 
     public static String getMessage(Throwable e) {
         return e.getLocalizedMessage() != null ? e.getLocalizedMessage() : e.getClass().getName();
+    }
+
+    public static void checkNew(HasId bean) {
+        if (!bean.isNew()) {
+            throw new IllegalRequestDataException(bean + " must be new (id=null)");
+        }
     }
 }

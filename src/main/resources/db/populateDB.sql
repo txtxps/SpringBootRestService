@@ -41,13 +41,15 @@ VALUES ('Borsch', 100, 100006),
        ('Salad', 110, 100005),
        ('Noodles', 90, 100003),
        ('Shrimp', 140, 100004),
-       ('Fish and Chips', 160, 100009),
+       ('Fish', 160, 100009),
        ('Beer', 130, 100007),
        ('Vine', 190, 100008),
        ('Apple juice', 100, 100006),
        ('Mango juice', 140, 100005),
        ('Pineapple juice', 120, 100004),
        ('Lacie', 170, 100005);
-INSERT INTO votes (user_id, restaurant_id)
-VALUES (100001, 100005),
-       (100002, 100006);
+INSERT INTO votes (user_id, restaurant_id, date)
+VALUES (100001, 100007, '2020-01-14'),
+       (100002, 100008, '2020-01-14'),
+       (100001, 100005, NOW()),
+       (100002, 100006, NOW());

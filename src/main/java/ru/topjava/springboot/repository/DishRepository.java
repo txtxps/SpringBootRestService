@@ -17,4 +17,6 @@ public interface DishRepository extends JpaRepository<Dish, Integer> {
     @Transactional
     @Override
     Dish save(Dish dish);
+
+
 }

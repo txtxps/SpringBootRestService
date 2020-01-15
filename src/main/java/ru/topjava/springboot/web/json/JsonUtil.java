@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static ru.topjava.springboot.web.json.JacksonObjectMapper.getMapper;
+import static ru.topjava.springboot.web.json.JacksonConfiguration.getMapper;
 
 public class JsonUtil {
 
@@ -38,17 +38,17 @@ public class JsonUtil {
         }
     }
 
-    public static <T> String writeAdditionProps(T obj, String addName, Object addValue) {
-        Map<String, Object> myMap = new HashMap<String, Object>() {{
-            put(addName, addValue);
-
-        }};
-        return writeAdditionProps(obj, myMap);
-    }
-
-    public static <T> String writeAdditionProps(T obj, Map<String, Object> addProps) {
-        Map<String, Object> map = getMapper().convertValue(obj, new TypeReference<Map<String, Object>>() {});
-        map.putAll(addProps);
-        return writeValue(map);
-    }
+//    public static <T> String writeAdditionProps(T obj, String addName, Object addValue) {
+//        Map<String, Object> myMap = new HashMap<String, Object>() {{
+//            put(addName, addValue);
+//
+//        }};
+//        return writeAdditionProps(obj, myMap);
+//    }
+//
+//    public static <T> String writeAdditionProps(T obj, Map<String, Object> addProps) {
+//        Map<String, Object> map = getMapper().convertValue(obj, new TypeReference<Map<String, Object>>() {});
+//        map.putAll(addProps);
+//        return writeValue(map);
+//    }
 }
