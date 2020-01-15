@@ -9,6 +9,8 @@ import java.io.Serializable;
 
 public class DishTo {
 
+    private Integer id;
+
     private String name;
 
     private int price;
@@ -17,17 +19,19 @@ public class DishTo {
 
     public DishTo() {}
 
+    public DishTo(Integer id, String name, int price, Integer restaurantId) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.restaurantId = restaurantId;
+    }
+
     public DishTo(String name, int price, Integer restaurantId) {
         this.name = name;
         this.price = price;
         this.restaurantId = restaurantId;
     }
 
-//    public DishTo(Dish dish) {
-//        name = dish.getName();
-//        price = dish.getPrice();
-//        restaurantId = dish.getRestaurant().getId();
-//    }
 
     public String getName() {
         return name;

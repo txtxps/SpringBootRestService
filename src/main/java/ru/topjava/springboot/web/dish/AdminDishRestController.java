@@ -55,14 +55,16 @@ public class AdminDishRestController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@RequestBody Dish dish, @PathVariable int id) {
+    public void update(@RequestBody DishTo dishTo, @PathVariable int id) {
         log.info("update dish with id={}", id);
-        checkNotFoundWithId(repository.save(dish), id);
+        Restaurant restaurant = restaurantRepository.getOne(dishTo.getRestaurantId());
+        Dish updated = new Dish(id, dishTo.getName(), dishTo.getPrice(), restaurant);
+        checkNotFoundWithId(repository.save(updated), id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Dish> create(@RequestBody DishTo dishTo) {
-//        log.info("create dish {} for restaurant with id={}", dish, restaurantId);
+        log.info("create dish {} for restaurant with id={}", dishTo, dishTo.getRestaurantId());
         Restaurant restaurant = restaurantRepository.getOne(dishTo.getRestaurantId());
         Dish created = new Dish(null, dishTo.getName(), dishTo.getPrice(), restaurant);
         repository.save(created);
