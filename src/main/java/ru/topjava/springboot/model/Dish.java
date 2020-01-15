@@ -57,6 +57,7 @@ public class Dish extends AbstractNamedEntity {
                 "id=" + id +
                 ", name='" + name +
                 ", price=" + price + '\'' +
+                ", restaurantId=" + (restaurant != null ? restaurant.getId().toString() : "null") +
                 '}';
     }
 }

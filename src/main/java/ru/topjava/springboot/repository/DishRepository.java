@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.topjava.springboot.model.Dish;
+import ru.topjava.springboot.to.DishTo;
 
 @Transactional(readOnly = true)
 public interface DishRepository extends JpaRepository<Dish, Integer> {

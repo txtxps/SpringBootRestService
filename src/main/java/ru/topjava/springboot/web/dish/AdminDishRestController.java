@@ -9,8 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.topjava.springboot.model.Dish;
+import ru.topjava.springboot.model.Restaurant;
 import ru.topjava.springboot.repository.DishRepository;
+import ru.topjava.springboot.repository.RestaurantRepository;
+import ru.topjava.springboot.to.DishTo;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -26,6 +30,9 @@ public class AdminDishRestController {
 
     @Autowired
     private DishRepository repository;
+
+    @Autowired
+    private RestaurantRepository restaurantRepository;
 
     @GetMapping("/{id}")
     public Dish get(@PathVariable int id) {
@@ -54,13 +61,16 @@ public class AdminDishRestController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Dish> create(@RequestBody Dish dish) {
-        Dish created = repository.save(dish);
+    public ResponseEntity<Dish> create(@RequestBody DishTo dishTo) {
+//        log.info("create dish {} for restaurant with id={}", dish, restaurantId);
+        Restaurant restaurant = restaurantRepository.getOne(dishTo.getRestaurantId());
+        Dish created = new Dish(null, dishTo.getName(), dishTo.getPrice(), restaurant);
+        repository.save(created);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
-        log.info("create dish {}", dish);
+
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 }
