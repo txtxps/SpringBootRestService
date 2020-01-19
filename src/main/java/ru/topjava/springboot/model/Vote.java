@@ -8,12 +8,10 @@ import java.time.LocalDate;
 @Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date"}, name = "user_unique_vote_idx")})
 public class Vote extends AbstractBaseEntity {
 
-//    @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "user_id")
     @NotNull
     private Integer userId;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "restaurant_id")
     @NotNull
     private Integer restaurantId;

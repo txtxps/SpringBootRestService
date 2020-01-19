@@ -1,7 +1,6 @@
 package ru.topjava.springboot.model;
 
 import org.hibernate.Hibernate;
-import org.springframework.data.domain.Persistable;
 import ru.topjava.springboot.HasId;
 
 import javax.persistence.*;

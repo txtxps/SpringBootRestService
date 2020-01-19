@@ -1,12 +1,5 @@
 package ru.topjava.springboot.to;
 
-import ru.topjava.springboot.model.Dish;
-import ru.topjava.springboot.model.Restaurant;
-import ru.topjava.springboot.repository.RestaurantRepository;
-
-import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
-
 public class DishTo {
 
     private Integer id;

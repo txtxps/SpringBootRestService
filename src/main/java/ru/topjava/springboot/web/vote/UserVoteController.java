@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.topjava.springboot.model.Restaurant;
 import ru.topjava.springboot.model.Vote;
 import ru.topjava.springboot.service.VoteService;
 import ru.topjava.springboot.web.SecurityUtil;

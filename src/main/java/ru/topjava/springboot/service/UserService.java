@@ -1,6 +1,7 @@
 package ru.topjava.springboot.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,12 +30,13 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     public User create(User user) {
-//        return repository.save(user);
         Assert.notNull(user, "user must not be null");
         return prepareAndSave(user);
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     public void delete(int id) {
         checkNotFoundWithId(repository.delete(id), id);
     }
@@ -47,10 +49,12 @@ public class UserService implements UserDetailsService {
         return checkNotFound(repository.getByEmail(email), "email=" + email);
     }
 
+    @Cacheable("users")
     public List<User> getAll() {
         return repository.findAll(Sort.by(Sort.Direction.ASC, "name", "email"));
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     public void update(User user) {
         checkNotFoundWithId(repository.save(user), user.getId());
     }
