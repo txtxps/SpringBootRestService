@@ -5,6 +5,7 @@ import ru.topjava.springboot.model.User;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.topjava.springboot.model.AbstractBaseEntity.START_SEQ;
@@ -24,6 +25,10 @@ public class UserTestData {
         updated.setName("UpdatedName");
         updated.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
         return updated;
+    }
+
+    public static User getNew() {
+        return new User(null, "New", "new@gmail.com", "newPass", false, new Date(), Collections.singleton(Role.ROLE_USER));
     }
 
     public static void assertMatch(User actual, User expected) {

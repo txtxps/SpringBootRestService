@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class UserVoteController {
 
     private static final Logger log = LoggerFactory.getLogger(UserVoteController.class);
-    static final String REST_URL = "/rest/profile";
+    static final String REST_URL = "/rest";
 
 
     private final VoteService service;
